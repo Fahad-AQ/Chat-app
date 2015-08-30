@@ -1,0 +1,40 @@
+<br/>
+<br>
+<div layout="row" layout-align="end end">
+    <div> <md-toolbar md-scroll-shrink>
+        <div  layout="row" layout-align="center center"  class="md-toolbar-tools">
+            <h5 class="md-toolbar-tools">
+                {{view.userName}}
+            </h5>
+        </div>
+    </md-toolbar>
+    </div>
+    &nbsp;&nbsp;&nbsp;
+    <div>
+        <md-button class="md-raised md-warn" ng-click="view.LogOutName('/login')">LogOut</md-button>
+    </div>
+</div>
+<br>
+<br>
+<div style="border: 1px solid lightgray">
+    <div><md-toolbar md-scroll-shrink>
+        <div  layout="row" layout-align="center center"  class="md-toolbar-tools">
+            <h3>
+                Online User
+            </h3>
+        </div>
+    </md-toolbar>
+    </div>
+    <br>
+    <table >
+        <tr>
+            <th>Name</th>
+            <th>Chat With Me</th>
+        </tr>
+        <tr ng-repeat="item in view.showContact" ng-hide="view.selfUser.uid == item.uid">
+            <td ><span><img ng-src="{{item.facebook.cachedUserProfile.picture.data.url||item.google.cachedUserProfile.picture.data.url}}" alt=""/></span><br>
+                <span><a ng-link="edit({id:item.$id})">{{item.facebook.displayName||item.google.displayName}}</a></span><br>
+            <td><md-button class="md-raised md-primary" ng-click="view.getIndex(item,'/edit')">Chat</md-button></td>
+        </tr>
+    </table>
+</div>

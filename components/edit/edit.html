@@ -1,0 +1,77 @@
+<style>
+    .pending-delete {
+        text-align: end; }
+    .scroll {
+        width: 350px;
+        height: 200px;
+        overflow : auto;
+    }
+</style>
+<div style="text-align: end;margin-left: 75px">
+    <div style="text-align: end;margin:10px" layout="row" layout-align="center center"><div> <md-toolbar md-scroll-shrink>
+        <div  layout="row" layout-align="center center"  class="md-toolbar-tools">
+            <img width="60" height="60" ng-src="{{edit.selfUser.facebook.cachedUserProfile.picture.data.url||edit.selfUser.google.cachedUserProfile.picture.data.url}}" alt=""/>
+            <h5 class="md-toolbar-tools">
+                {{edit.LogName}}
+            </h5>
+        </div>
+    </md-toolbar>
+    </div>
+    &nbsp;&nbsp;&nbsp;
+    <div>
+        <md-button class="md-raised md-warn" ng-click="edit.LogOutName('/login')">LogOut</md-button>
+    </div>
+    </div>
+    </div>
+        <div layout="row" layout-align="center center">
+            <div style="border: 1px solid lightgray;" layout-margin>
+                <md-toolbar md-scroll-shrink>
+                    <div  layout="row" layout-align="center center"  class="md-toolbar-tools">
+                        <h3>
+                            Online Users
+                        </h3>
+                    </div>
+                </md-toolbar>
+                <br>
+                <div class="scroll">
+                    <table style="padding: 5px ;text-align: center;" >
+                        <tr>
+                            <th>Name</th>
+                            <th>Click TO Chat</th>
+                        </tr>
+                        <tr ng-repeat="item in edit.arrayInfo" ng-hide="edit.selfUser.uid == item.uid">
+                            <td ><span><img ng-src="{{item.facebook.cachedUserProfile.picture.data.url||item.google.cachedUserProfile.picture.data.url}}" alt=""/></span><br>
+                                <span><a ng-link="edit({id:item.$id})">{{item.facebook.displayName||item.google.displayName}}</a></span><br>
+                            <td><md-button class="md-raised md-primary" ng-click="edit.arrayFun(item)">Chat</md-button></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div  style="border: 1px solid lightgray;" layout-margin>
+                <md-toolbar md-scroll-shrink >
+                    <div  layout="row" layout-align="center center"  class="md-toolbar-tools">
+                        <h5 class="md-toolbar-tools">
+                            {{edit.seletedUserName}}
+                        </h5>
+                    </div>
+                </md-toolbar>
+                <div class="scroll" scrollbottom >
+                    <div ng-repeat="s in edit.arrayUser"  layout-margin>
+                        <p style="word-wrap:break-word" layout-margin ng-class="{'pending-delete': s.name === edit.seletedUserName}">
+                            <span layout-margin><b>{{s.name}}: {{s.message}}</b> </span>
+                        </p>
+                    </div>
+                </div>
+                <div layout="row" layout-align="center center">
+                    <md-input-container>
+                        <label>Type Text :</label><input type="text"  ng-model="edit.message" onkeydown="if (event.keyCode == 13) document.getElementById('btnAdd').click()" autofocus/>
+
+                    </md-input-container>
+                    &nbsp;
+                    <md-button class="md-raised md-primary" id='btnAdd' ng-click="edit.sendMessage(edit.message)">Send</md-button>
+                </div>
+            </div>
+        </div>
+
+
+
